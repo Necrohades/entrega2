@@ -7,6 +7,7 @@ editor: visual
 ```{r}
 install.packages("tidyverse")
 library(tidyverse)
+mpg_backup=mpg
 mpg %>% glimpse
 ```
 
@@ -24,4 +25,40 @@ mpg %>% select(c(manufacturer)) %>%
 ```
 
 # Pregunta 2
+
+```{r}
+mpg %>% select(c(cty,class)) %>% 
+  group_by(class) %>%
+  mutate(class=str_to_title(class)) %>% 
+  summarise(mean=mean(cty),.groups = "drop") %>% 
+  ggplot(aes(x=class,y=mean,fill=class)) +
+  geom_col()
+```
+# Pregunta 3
+
+```{r}
+# manera 1: fusionando las variables
+mpg %>% select(c(cty,drv,class)) %>% 
+  group_by(class,drv) %>%
+  mutate(class=str_to_title(class)) %>% 
+  summarise(mean=mean(cty),.groups = "drop") %>% 
+  drop_na() %>% 
+  unite(col="class_drv",c(class,drv),sep="_",remove=T) %>% 
+  ggplot(aes(x=class_drv,y=mean,fill=class_drv)) +
+  geom_col()+
+  coord_flip()
+```
+```{r}
+# manera 2: haciendo distintos graficos
+mpg %>% select(c(cty,drv,class)) %>% 
+  group_by(class,drv) %>%
+  mutate(class=str_to_title(class)) %>% 
+  summarise(mean=mean(cty),.groups = "drop") %>% 
+  complete(class,drv,fill=list(mean=NA)) %>% 
+  ggplot(aes(class,mean))+
+  geom_col() +
+  facet_grid(rows=vars(drv))+
+  coord_flip()
+  
+```
 

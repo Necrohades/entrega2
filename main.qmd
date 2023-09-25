@@ -3,26 +3,25 @@ title: "entrega2"
 format: html
 editor: visual
 ---
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-Branch: frank
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
+# Carga de librerías y de datos.
 ```{r}
-1 + 1
+install.packages("tidyverse")
+library(tidyverse)
+mpg %>% glimpse
 ```
 
-You can add options to executable code like this
+
+# Pregunta 1
 
 ```{r}
-#| echo: false
-2 * 2
+mpg %>% select(c(manufacturer)) %>%
+  mutate(manufacturer=str_to_title(manufacturer)) %>% 
+  ggplot(aes(x=manufacturer))+
+  geom_bar(fill="blue")+
+  coord_flip()+
+  labs(x="Fabricante", y="Número de vehículos")
+  
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+# Pregunta 2
+

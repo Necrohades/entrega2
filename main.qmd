@@ -4,25 +4,41 @@ format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-Branch: frank
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Carga de librerí­as y de datos.
 
 ```{r}
-1 + 1
+install.packages("tidyverse")
+library(tidyverse)
+mpg %>% glimpse
 ```
 
-You can add options to executable code like this
+## Pregunta 4
 
 ```{r}
-#| echo: false
-2 * 2
+mpg %>% ggplot(aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Tamaño del motor (litros)",
+    y = "Rendimiento en carretera (millas por galón)",
+    color = "Clase de vehículo")
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Pregunta 5
+
+```{r}
+ggplot(data = mpg, aes(x = cty)) +
+  geom_histogram(aes(fill = drv), 
+                 alpha = 0.5, 
+                 position = "identity",
+                 na.rm = TRUE) +
+  labs(x = "Rendimiento en ciudad",
+       y = "Frecuencia absoluta",
+       fill = "Tipo de tracción")
+```
+
+```{r}
+mpg %>% ggplot(aes(x = drv, y = cty, fill = drv)) +
+  geom_violin(show.legend = FALSE) + 
+  scale_fill_brewer(palette = "Dark2")
+```

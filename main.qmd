@@ -15,6 +15,8 @@ mpg %>% glimpse
 
 # Pregunta 1
 
+Dibujad un gráfico que permita visualizar el número de vehículos de cada fabricante del conjunto de datos.
+
 ```{r}
 mpg %>% select(c(manufacturer)) %>%
   mutate(manufacturer=str_to_title(manufacturer)) %>% 
@@ -27,16 +29,21 @@ mpg %>% select(c(manufacturer)) %>%
 
 # Pregunta 2
 
+Dibujad un gráfico para mostrar el rendimiento medio en ciudad para cada clase.
+
 ```{r}
 mpg %>% select(c(cty,class)) %>% 
   group_by(class) %>%
   mutate(class=str_to_title(class)) %>% 
   summarise(mean=mean(cty),.groups = "drop") %>% 
   ggplot(aes(x=class,y=mean,fill=class)) +
-  geom_col()
+  geom_col(show.legend = FALSE) +
+  labs(x="Clase", y="Media", fill="Clase")
 ```
 
 # Pregunta 3
+
+Construid un gráfico para mostrar el rendimiento medio en ciudad para cada clase y tipo de tracción simultáneamente.
 
 ```{r}
 # manera 1: fusionando las variables
@@ -47,8 +54,9 @@ mpg %>% select(c(cty,drv,class)) %>%
   drop_na() %>% 
   unite(col="class_drv",c(class,drv),sep="_",remove=T) %>% 
   ggplot(aes(x=class_drv,y=mean,fill=class_drv)) +
-  geom_col()+
-  coord_flip()
+  geom_col(show.legend = FALSE)+
+  coord_flip() +
+  labs(x="Clase y tipo de tracción", y="Media")
 ```
 
 ```{r}
@@ -61,6 +69,7 @@ mpg %>% select(c(cty,drv,class)) %>%
   ggplot(aes(class,mean))+
   geom_col() +
   facet_grid(rows=vars(drv))+
-  coord_flip()
+  coord_flip() +
+  labs(x="Clase", y="Media")
   
 ```

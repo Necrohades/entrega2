@@ -73,3 +73,42 @@ mpg %>% select(c(cty,drv,class)) %>%
   labs(x="Clase", y="Media")
   
 ```
+
+## Pregunta 4
+
+Utilizad un gráfico para mostrar la relación entre tamaño del motor y el rendimiento en carretera, para cada clase de vehículo. ¿Qué podéis observar?
+
+Usamos un gráfico de dispersión entre las dos variables qualitativas (desplazamiento del motor y rendimiento en carretera) y coloreamos los puntos en función de la clase de vehículo. Haciendo una regresión lineal para cada clase, podemos observar que el rendimiento en carretera disminuye con un mayor desplazamiento del motor.
+
+```{r}
+mpg %>% ggplot(aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Desplazamiento del motor (litros)",
+    y = "Rendimiento en carretera (millas por galón)",
+    color = "Clase de vehículo")
+```
+
+## Pregunta 5
+
+Comparad la distribución del rendimiento en ciudad para distintos tipos de tracción.
+
+En los siguientes gráficos podemos observar que los coches con tracción delantera (f) tienen por lo general un mayor rendimiento en ciudad que los coches con tracción trasera (r) o tracción en cuatro ruedas (4).
+
+```{r}
+ggplot(data = mpg, aes(x = cty)) +
+  geom_histogram(aes(fill = drv), 
+                 alpha = 0.5, 
+                 position = "identity",
+                 na.rm = TRUE) +
+  labs(x = "Rendimiento en ciudad",
+       y = "Frecuencia absoluta",
+       fill = "Tipo de tracción")
+```
+
+```{r}
+mpg %>% ggplot(aes(x = drv, y = cty, fill = drv)) +
+  geom_violin(show.legend = FALSE) + 
+  scale_fill_brewer(palette = "Dark2")
+```

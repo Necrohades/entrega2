@@ -3,14 +3,15 @@ title: "entrega2"
 format: html
 editor: visual
 ---
+
 # Carga de librerías y de datos.
+
 ```{r}
 install.packages("tidyverse")
 library(tidyverse)
 mpg_backup=mpg
 mpg %>% glimpse
 ```
-
 
 # Pregunta 1
 
@@ -34,6 +35,7 @@ mpg %>% select(c(cty,class)) %>%
   ggplot(aes(x=class,y=mean,fill=class)) +
   geom_col()
 ```
+
 # Pregunta 3
 
 ```{r}
@@ -48,6 +50,7 @@ mpg %>% select(c(cty,drv,class)) %>%
   geom_col()+
   coord_flip()
 ```
+
 ```{r}
 # manera 2: haciendo distintos graficos
 mpg %>% select(c(cty,drv,class)) %>% 
@@ -61,4 +64,3 @@ mpg %>% select(c(cty,drv,class)) %>%
   coord_flip()
   
 ```
-

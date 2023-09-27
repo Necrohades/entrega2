@@ -6,12 +6,15 @@ editor: visual
 
 # Carga de librerías y de datos.
 
-```{r}
+```{r,echo=FALSE, eval=FALSE}
 install.packages("tidyverse")
+```
+```{r,warning=FALSE}
 library(tidyverse)
 mpg_backup=mpg
 mpg %>% glimpse
 ```
+
 
 # Pregunta 1
 
@@ -20,10 +23,12 @@ Dibujad un gráfico que permita visualizar el número de vehículos de cada fabr
 ```{r}
 mpg %>% select(c(manufacturer)) %>%
   mutate(manufacturer=str_to_title(manufacturer)) %>% 
-  ggplot(aes(x=manufacturer))+
-  geom_bar(fill="blue")+
+  ggplot(aes(x=manufacturer, fill=manufacturer))+
+  geom_bar()+
   coord_flip()+
-  labs(x="Fabricante", y="Número de vehículos")
+  labs(x="Fabricante", y="Número de vehículos")+
+  theme_bw()+
+  theme(legend.position = "none")
   
 ```
 
@@ -31,84 +36,66 @@ mpg %>% select(c(manufacturer)) %>%
 
 Dibujad un gráfico para mostrar el rendimiento medio en ciudad para cada clase.
 
+En el siguiente gráfico hemos representado un *boxplot* para cada clase, y hemos añadido la media con una cruz.
+
 ```{r}
 mpg %>% select(c(cty,class)) %>% 
-  group_by(class) %>%
-  mutate(class=str_to_title(class)) %>% 
-  summarise(mean=mean(cty),.groups = "drop") %>% 
-  ggplot(aes(x=class,y=mean,fill=class)) +
-  geom_col(show.legend = FALSE) +
-  labs(x="Clase", y="Media", fill="Clase")
+  mutate(class=str_to_title(class)) %>%
+  ggplot(aes(x=class, y=cty,fill=class)) + 
+  geom_boxplot()+
+  stat_summary(fun.y=mean, geom="point", shape=3, size=3,show.legend = FALSE)+
+  labs(x="Clase", y="Rendimiento del motor en ciudad")+
+  theme_bw()+
+  theme(legend.position="none")
 ```
+
 
 # Pregunta 3
 
 Construid un gráfico para mostrar el rendimiento medio en ciudad para cada clase y tipo de tracción simultáneamente.
 
-```{r}
-# manera 1: fusionando las variables
-mpg %>% select(c(cty,drv,class)) %>% 
-  group_by(class,drv) %>%
-  mutate(class=str_to_title(class)) %>% 
-  summarise(mean=mean(cty),.groups = "drop") %>% 
-  drop_na() %>% 
-  unite(col="class_drv",c(class,drv),sep="_",remove=T) %>% 
-  ggplot(aes(x=class_drv,y=mean,fill=class_drv)) +
-  geom_col(show.legend = FALSE)+
-  coord_flip() +
-  labs(x="Clase y tipo de tracción", y="Media")
-```
+Hemos utilizado un *boxplot* para cada clase y tipo de tracción, y los hemos agrupado por tipo de tracción. Además, el color también depende del tipo de tracción. Hemos representado las medias mediante círculos del mismo color que la tracción, que están dentro de cada caja.
 
 ```{r}
-# manera 2: haciendo distintos graficos
 mpg %>% select(c(cty,drv,class)) %>% 
-  group_by(class,drv) %>%
-  mutate(class=str_to_title(class)) %>% 
-  summarise(mean=mean(cty),.groups = "drop") %>% 
-  complete(class,drv,fill=list(mean=NA)) %>% 
-  ggplot(aes(class,mean))+
-  geom_col() +
-  facet_grid(rows=vars(drv))+
-  coord_flip() +
-  labs(x="Clase", y="Media")
-  
+  mutate(class=str_to_title(class)) %>%
+  ggplot(aes(x=class, y=cty, fill=drv)) + 
+  geom_boxplot()+
+  stat_summary(fun.y=mean, geom="point", shape=21, size=2,show.legend = FALSE,position=position_dodge(0.75))+
+  labs(x="Clase", y="Rendimiento del motor en ciudad",fill="Tipo de tracción")+
+  scale_fill_discrete(labels=c("4x4","Delantera","Trasera"))+
+  theme_bw()
 ```
 
-## Pregunta 4
+# Pregunta 4
 
 Utilizad un gráfico para mostrar la relación entre tamaño del motor y el rendimiento en carretera, para cada clase de vehículo. ¿Qué podéis observar?
 
-Usamos un gráfico de dispersión entre las dos variables qualitativas (desplazamiento del motor y rendimiento en carretera) y coloreamos los puntos en función de la clase de vehículo. Haciendo una regresión lineal para cada clase, podemos observar que el rendimiento en carretera disminuye con un mayor desplazamiento del motor.
+Queremos relacionar dos variables categóricas (tamaño del motor, es decir, número de cilindros; y clase de vehículo) con una cuantitativa (el rendimiento en carretera), así que estamos en la misma situación que en el apartado anterior. Podemos utilizar un gráfico similar.
 
 ```{r}
-mpg %>% ggplot(aes(x = displ, y = hwy, color = class)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(
-    x = "Desplazamiento del motor (litros)",
-    y = "Rendimiento en carretera (millas por galón)",
-    color = "Clase de vehículo")
+mpg %>% select(c(cyl,hwy,class)) %>% 
+  mutate_at(vars(cyl), factor) %>% 
+  mutate(class=str_to_title(class)) %>%
+  ggplot(aes(x=class, y=hwy, fill=cyl)) + 
+  geom_boxplot()+
+  stat_summary(fun.y=mean, geom="point", shape=21, size=2,show.legend = FALSE,position=position_dodge(0.75))+
+  labs(x="Clase", y="Rendimiento del motor en carretera", fill="Número de cilindros")+
+  theme_bw()
 ```
+Podemos observar que, en todas las clases de vehículos, el rendimiento baja con el número de cilindros, generalmente: las cajas aparecen "más abajo" mientras más cilindros tiene el motor.
 
-## Pregunta 5
+# Pregunta 5
 
 Comparad la distribución del rendimiento en ciudad para distintos tipos de tracción.
 
-En los siguientes gráficos podemos observar que los coches con tracción delantera (f) tienen por lo general un mayor rendimiento en ciudad que los coches con tracción trasera (r) o tracción en cuatro ruedas (4).
-
 ```{r}
-ggplot(data = mpg, aes(x = cty)) +
-  geom_histogram(aes(fill = drv), 
-                 alpha = 0.5, 
-                 position = "identity",
-                 na.rm = TRUE) +
-  labs(x = "Rendimiento en ciudad",
-       y = "Frecuencia absoluta",
-       fill = "Tipo de tracción")
+mpg %>% select(cty,drv) %>% 
+  ggplot(aes(x = cty, color=drv, fill = drv)) +
+  geom_density(alpha=0.55)+
+  labs(x="Rendimiento en ciudad",y="Función de densidad",fill="Tipo de tracción")+
+  guides(color="none")+ # si no se pone, muestra otra leyenda que no aporta informacion
+  scale_fill_discrete(labels=c("4x4","Delantera","Trasera"))+
+  theme_bw()
 ```
-
-```{r}
-mpg %>% ggplot(aes(x = drv, y = cty, fill = drv)) +
-  geom_violin(show.legend = FALSE) + 
-  scale_fill_brewer(palette = "Dark2")
-```
+En los gráficos anteriores podemos observar que los coches con tracción delantera tienen por lo general un mayor rendimiento en ciudad que los coches con tracción trasera o tracción en cuatro ruedas, y no hay demasiada diferencia entre estos dos últimos.

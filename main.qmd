@@ -1,5 +1,9 @@
 ---
-title: "entrega2"
+title: "Entrega 2"
+author:
+  - Maria del Mar Deyà
+  - Toni Fuentes Bauzà
+  - Frank William Hammond Espinosa
 format: html
 editor: visual
 ---

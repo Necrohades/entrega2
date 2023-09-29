@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Maria del Mar Deyà">
+<meta name="author" content="Toni Fuentes Bauzà">
+<meta name="author" content="Frank William Hammond Espinosa">
 
-<title>entrega2</title>
+<title>Entrega 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -108,13 +111,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">entrega2</h1>
+<h1 class="title">Entrega 2</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Maria del Mar Deyà </p>
+             <p>Toni Fuentes Bauzà </p>
+             <p>Frank William Hammond Espinosa </p>
+          </div>
+  </div>
     
   
     
@@ -188,7 +199,7 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>class, <span class="at">y=</span>cty,<span class="at">fill=</span>class)) <span class="sc">+</span> </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">3</span>, <span class="at">size=</span><span class="dv">3</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Clase"</span>, <span class="at">y=</span><span class="st">"Media"</span>)<span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Clase"</span>, <span class="at">y=</span><span class="st">"Rendimiento del motor en ciudad"</span>)<span class="sc">+</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -211,14 +222,15 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.y=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>,<span class="at">show.legend =</span> <span class="cn">FALSE</span>,<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="fl">0.75</span>))<span class="sc">+</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Clase"</span>, <span class="at">y=</span><span class="st">"Rendimiento del motor en ciudad"</span>,<span class="at">fill=</span><span class="st">"Tipo de tracción"</span>)<span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"4x4"</span>,<span class="st">"Frontal"</span>,<span class="st">"Trasera"</span>))<span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"4x4"</span>,<span class="st">"Delantera"</span>,<span class="st">"Trasera"</span>))<span class="sc">+</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="main_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="pregunta-4" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-4">Pregunta 4</h2>
+</section>
+<section id="pregunta-4" class="level1">
+<h1>Pregunta 4</h1>
 <p>Utilizad un gráfico para mostrar la relación entre tamaño del motor y el rendimiento en carretera, para cada clase de vehículo. ¿Qué podéis observar?</p>
 <p>Queremos relacionar dos variables categóricas (tamaño del motor, es decir, número de cilindros; y clase de vehículo) con una cuantitativa (el rendimiento en carretera), así que estamos en la misma situación que en el apartado anterior. Podemos utilizar un gráfico similar.</p>
 <div class="cell">
@@ -236,22 +248,22 @@ $ class        &lt;chr&gt; "compact", "compact", "compact", "compact", "compact"
 </div>
 <p>Podemos observar que, en todas las clases de vehículos, el rendimiento baja con el número de cilindros, generalmente: las cajas aparecen “más abajo” mientras más cilindros tiene el motor.</p>
 </section>
-<section id="pregunta-5" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-5">Pregunta 5</h2>
+<section id="pregunta-5" class="level1">
+<h1>Pregunta 5</h1>
 <p>Comparad la distribución del rendimiento en ciudad para distintos tipos de tracción.</p>
-<p>En los siguientes gráficos podemos observar que los coches con tracción delantera (f) tienen por lo general un mayor rendimiento en ciudad que los coches con tracción trasera (r) o tracción en cuatro ruedas (4).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> <span class="fu">select</span>(cty,drv) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">color=</span>drv, <span class="at">fill =</span> drv)) <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.55</span>)<span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Rendimiento en ciudad"</span>,<span class="at">y=</span><span class="st">"Función de densidad"</span>,<span class="at">fill=</span><span class="st">"Tipo de transimisión"</span>)<span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Rendimiento en ciudad"</span>,<span class="at">y=</span><span class="st">"Función de densidad"</span>,<span class="at">fill=</span><span class="st">"Tipo de tracción"</span>)<span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color=</span><span class="st">"none"</span>)<span class="sc">+</span> <span class="co"># si no se pone, muestra otra leyenda que no aporta informacion</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"4x4"</span>,<span class="st">"Delantera"</span>,<span class="st">"Trasera"</span>))<span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="main_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
+<p>En los gráficos anteriores podemos observar que los coches con tracción delantera tienen por lo general un mayor rendimiento en ciudad que los coches con tracción trasera o tracción en cuatro ruedas, y no hay demasiada diferencia entre estos dos últimos.</p>
 </section>
 
 </main>
